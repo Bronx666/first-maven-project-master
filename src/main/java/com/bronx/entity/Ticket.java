@@ -1,20 +1,32 @@
 package com.bronx.entity;
 
-import javax.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Ticket {
+public class Ticket implements BaseEntity<Long>{
 
     @Id
-    private int id;
-    @ManyToOne//or OneToMany??
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-    @ManyToOne//or oneToMany??
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private EventFilm eventFilm;
     private int ticketNumber;
 

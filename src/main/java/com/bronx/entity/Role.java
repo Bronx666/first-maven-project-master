@@ -1,6 +1,6 @@
 package com.bronx.entity;
 
-public enum LevelAccess {
+public enum Role {
 
     USER,
     ADMIN,

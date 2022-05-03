@@ -1,81 +1,88 @@
 package com.bronx.entityTest;
 
-import com.bronx.entity.LevelAccess;
 import com.bronx.entity.User;
+import com.bronx.testUtil.GettersEntityUtil;
+import com.bronx.util.HibernateUtil;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class UserTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+public class UserTest extends GettersEntityUtil {
+
+
+    @BeforeAll
+    static void getSession() {
+        sessionFactory = HibernateUtil.buildSessionFactory();
+    }
+
+    @AfterAll
+    static void close(){
+        sessionFactory.close();
+    }
 
     @Test
     void checkReturnUser() {
-        Configuration config = new Configuration();
-        config.configure();
-
-        @Cleanup SessionFactory sessionFactory = config.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        var user = session.get(User.class, 6L);
-        System.out.println(user.toString());
+        var user = getUser();
+        session.save(user);
 
-        session.getTransaction();
+        assertNotNull(session.get(User.class, 1L));
+
+        session.getTransaction().rollback();
     }
 
     @Test
     void checkCreateUser() {
-        User user = User.builder()
-                .username("Alex")
-                .password("1111")
-                .levelAccess(LevelAccess.USER)
-                .build();
-
-        Configuration config = new Configuration();
-        config.configure();
-
-        @Cleanup SessionFactory sessionFactory = config.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         session.beginTransaction();
 
+        var user = getUser();
         session.save(user);
 
-        session.getTransaction().commit();
+        assertNotNull(session.get(User.class, 1L));
+        session.getTransaction().rollback();
     }
 
     @Test
     void checkDeleteUser() {
-        User user = User.builder()
-                .username("Alex")
-                .password("1111")
-                .levelAccess(LevelAccess.USER)
-                .build();
+        @Cleanup Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
-        Configuration config = new Configuration();
-        config.configure();
+        session.save(user);
+        var user = session.get(User.class, 1L);
+        session.remove(user);
 
-        try (SessionFactory sessionFactory = config.buildSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        session.flush();
 
-            session.save(user);
 
-            user = session.load(User.class, user.getId());
-
-            session.delete(user);
-
-            session.getTransaction().commit();
-            System.out.println("deleted");
-
-        } catch (Exception exception) {
-            System.out.println("not deleted");
-        }
+        assertNull(session.get(User.class, 1L));
+        session.getTransaction().rollback();
 
     }
 
+    @Test
+    void updateUserUsername() {
+        @Cleanup Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.save(user);
+        var user = session.get(User.class, 1L);
+        user.setUsername("NotAlex");
+
+        session.flush();
+        session.clear();
+
+        assertEquals(session.get(User.class, 1L).getUsername(), "NotAlex");
+        session.getTransaction().rollback();
+    }
 
 }

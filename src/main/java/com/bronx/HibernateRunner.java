@@ -1,73 +1,35 @@
 package com.bronx;
 
-import com.bronx.entity.*;
-import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
-import java.time.LocalDateTime;
+import com.bronx.repository.UserRepository;
+import com.bronx.entity.Role;
+import com.bronx.entity.User;
+import com.bronx.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.lang.reflect.Proxy;
 
 public class HibernateRunner {
 
     public static void main(String[] args) {
 
-        LocalDateTime date = LocalDateTime.of( 2022, 6, 25, 13, 24);
+        SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
-        Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
+        var session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
+                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
 
+        var user = User.builder()
+                .username("Andrew")
+                .password("1234")
+                .role(Role.USER)
+                .build();
 
-        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        session.beginTransaction();
+        var userRepository = new UserRepository(session);
+        System.out.println(userRepository.save(user));
 
-            User user = User.builder()
-                    .username("Alex")
-                    .password("1111")
-                    .levelAccess(LevelAccess.USER)
-                    .build();
-
-            Cinema cinema = Cinema.builder()
-                    .name("ProjectCinema")
-                    .description("Cinema with one hall")
-                    .build();
-
-            Hall hall = Hall.builder()
-                    .name("First")
-                    .description("fine hall")
-                    .amountOfSeats(40)
-                    .cinema(cinema)
-                    .build();
-
-            Film film = Film.builder()
-                    .name("Morbius")
-                    .description("About vampire")
-                    .ticketCost(14.5F)
-                    .duration(145)
-                    .build();
-
-            EventFilm eventFilm = EventFilm.builder()
-                    .hall(hall)
-                    .film(film)
-                    .date(date)
-                    .freeSeats(40)
-                    .build();
-
-            Ticket ticket = Ticket.builder()
-                    .user(user)
-                    .eventFilm(eventFilm)
-                    .ticketNumber(hall.getAmountOfSeats() - eventFilm.getFreeSeats())//КОСТЫЛЬ!
-                    .build();
-
-            session.save(user);
-//            session.save(cinema);
-//            session.save(hall);
-//            session.save(film);
-//            session.save(eventFilm);
-//            session.save(ticket);
-
-            session.getTransaction().commit();
-        }
-
-
+        session.getTransaction().commit();
     }
 }
+
 

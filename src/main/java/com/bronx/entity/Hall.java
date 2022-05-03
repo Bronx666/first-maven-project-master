@@ -1,8 +1,19 @@
 package com.bronx.entity;
 
-import javax.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -10,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Hall {
+public class Hall implements BaseEntity<Long>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +29,11 @@ public class Hall {
     private String name;
     private String description;
     private int amountOfSeats;
+
+    @ToString.Exclude
     @ManyToOne
     private Cinema cinema;
-    //Under development
-//    @OneToMany(mappedBy = "Hall")
-//    private List<EventFilm> listOfEventFilms;
+
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventFilm> Events = new ArrayList<>();
 }
