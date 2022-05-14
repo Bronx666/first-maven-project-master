@@ -1,0 +1,54 @@
+-------------------------------------------------------------------------------
+Test set: com.bronx.daoTest.HallRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 4, Skipped: 0, Time elapsed: 3.922 s <<< FAILURE! - in com.bronx.daoTest.HallRepositoryTest
+com.bronx.daoTest.HallRepositoryTest.findAll  Time elapsed: 0.545 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 3 but was: 12 in:
+[Hall(id=1, name=first galaxy hall, description=This hale have 40 seats, amountOfSeats=40, Events=[EventFilm(id=1, date=2022-06-25T13:24, freeSeats=40)]),
+    Hall(id=2, name=second galaxy hall, description=This hale have 35 seats, amountOfSeats=35, Events=[EventFilm(id=2, date=2022-06-25T13:24, freeSeats=35)]),
+    Hall(id=3, name=first helios hall, description=This hale have 50 seats, amountOfSeats=50, Events=[EventFilm(id=3, date=2022-06-25T13:24, freeSeats=50)]),
+    Hall(id=4, name=first galaxy hall, description=This hale have 40 seats, amountOfSeats=40, Events=[EventFilm(id=4, date=2022-06-25T13:24, freeSeats=40)]),
+    Hall(id=5, name=second galaxy hall, description=This hale have 35 seats, amountOfSeats=35, Events=[EventFilm(id=5, date=2022-06-25T13:24, freeSeats=35)]),
+    Hall(id=6, name=first helios hall, description=This hale have 50 seats, amountOfSeats=50, Events=[EventFilm(id=6, date=2022-06-25T13:24, freeSeats=50)]),
+    Hall(id=7, name=first galaxy hall, description=This hale have 40 seats, amountOfSeats=40, Events=[EventFilm(id=8, date=2022-06-25T13:24, freeSeats=40)]),
+    Hall(id=8, name=second galaxy hall, description=This hale have 35 seats, amountOfSeats=35, Events=[EventFilm(id=9, date=2022-06-25T13:24, freeSeats=35)]),
+    Hall(id=9, name=first helios hall, description=This hale have 50 seats, amountOfSeats=50, Events=[EventFilm(id=10, date=2022-06-25T13:24, freeSeats=50)]),
+    Hall(id=10, name=first galaxy hall, description=This hale have 40 seats, amountOfSeats=40, Events=[EventFilm(id=11, date=2022-06-25T13:24, freeSeats=40)]),
+    Hall(id=11, name=second galaxy hall, description=This hale have 35 seats, amountOfSeats=35, Events=[EventFilm(id=12, date=2022-06-25T13:24, freeSeats=35)]),
+    Hall(id=12, name=first helios hall, description=This hale have 50 seats, amountOfSeats=50, Events=[EventFilm(id=13, date=2022-06-25T13:24, freeSeats=50)])]
+	at com.bronx.daoTest.HallRepositoryTest.findAll(HallRepositoryTest.java:48)
+
+com.bronx.daoTest.HallRepositoryTest.checkUpdateHallName  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.HallRepositoryTest.checkUpdateHallName(HallRepositoryTest.java:92)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.HallRepositoryTest.checkUpdateHallName(HallRepositoryTest.java:92)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.HallRepositoryTest.checkUpdateHallName(HallRepositoryTest.java:92)
+
+com.bronx.daoTest.HallRepositoryTest.findHallById  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.HallRepositoryTest.findHallById(HallRepositoryTest.java:59)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.HallRepositoryTest.findHallById(HallRepositoryTest.java:59)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.HallRepositoryTest.findHallById(HallRepositoryTest.java:59)
+
+com.bronx.daoTest.HallRepositoryTest.saveHallAndReturnWithId  Time elapsed: 0.007 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.HallRepositoryTest.saveHallAndReturnWithId(HallRepositoryTest.java:70)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.HallRepositoryTest.saveHallAndReturnWithId(HallRepositoryTest.java:70)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.HallRepositoryTest.saveHallAndReturnWithId(HallRepositoryTest.java:70)
+
+com.bronx.daoTest.HallRepositoryTest.deleteHall  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.HallRepositoryTest.deleteHall(HallRepositoryTest.java:82)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.HallRepositoryTest.deleteHall(HallRepositoryTest.java:82)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.HallRepositoryTest.deleteHall(HallRepositoryTest.java:82)
+

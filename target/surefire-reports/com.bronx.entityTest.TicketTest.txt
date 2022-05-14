@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: com.bronx.entityTest.TicketTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 0.714 s <<< FAILURE! - in com.bronx.entityTest.TicketTest
+com.bronx.entityTest.TicketTest.checkDeleteTicket  Time elapsed: 0.097 s  <<< ERROR!
+java.lang.StackOverflowError
+
+com.bronx.entityTest.TicketTest.updateTicketNumber  Time elapsed: 0.037 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <40> but was: <3>
+	at com.bronx.entityTest.TicketTest.updateTicketNumber(TicketTest.java:83)
+

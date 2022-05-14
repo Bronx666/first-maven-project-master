@@ -1,0 +1,51 @@
+-------------------------------------------------------------------------------
+Test set: com.bronx.daoTest.EventFilmRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 5, Skipped: 0, Time elapsed: 6.474 s <<< FAILURE! - in com.bronx.daoTest.EventFilmRepositoryTest
+com.bronx.daoTest.EventFilmRepositoryTest.saveEventFilmAndReturnWithId  Time elapsed: 0.202 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 4L
+ but was: 7L
+	at com.bronx.daoTest.EventFilmRepositoryTest.saveEventFilmAndReturnWithId(EventFilmRepositoryTest.java:80)
+
+com.bronx.daoTest.EventFilmRepositoryTest.findAll  Time elapsed: 0.011 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findAll(EventFilmRepositoryTest.java:48)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findAll(EventFilmRepositoryTest.java:48)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.EventFilmRepositoryTest.findAll(EventFilmRepositoryTest.java:48)
+
+com.bronx.daoTest.EventFilmRepositoryTest.checkUpdateUsername  Time elapsed: 0.013 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.EventFilmRepositoryTest.checkUpdateUsername(EventFilmRepositoryTest.java:98)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.EventFilmRepositoryTest.checkUpdateUsername(EventFilmRepositoryTest.java:98)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.EventFilmRepositoryTest.checkUpdateUsername(EventFilmRepositoryTest.java:98)
+
+com.bronx.daoTest.EventFilmRepositoryTest.findEventFromSpecifiedFilmIdAndHallId  Time elapsed: 0.011 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFromSpecifiedFilmIdAndHallId(EventFilmRepositoryTest.java:111)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFromSpecifiedFilmIdAndHallId(EventFilmRepositoryTest.java:111)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFromSpecifiedFilmIdAndHallId(EventFilmRepositoryTest.java:111)
+
+com.bronx.daoTest.EventFilmRepositoryTest.findEventFilmById  Time elapsed: 0.015 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFilmById(EventFilmRepositoryTest.java:62)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFilmById(EventFilmRepositoryTest.java:62)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.EventFilmRepositoryTest.findEventFilmById(EventFilmRepositoryTest.java:62)
+
+com.bronx.daoTest.EventFilmRepositoryTest.deleteEventFilm  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.reflect.UndeclaredThrowableException
+	at com.bronx.daoTest.EventFilmRepositoryTest.deleteEventFilm(EventFilmRepositoryTest.java:87)
+Caused by: java.lang.reflect.InvocationTargetException
+	at com.bronx.daoTest.EventFilmRepositoryTest.deleteEventFilm(EventFilmRepositoryTest.java:87)
+Caused by: java.lang.IllegalStateException: Transaction already active
+	at com.bronx.daoTest.EventFilmRepositoryTest.deleteEventFilm(EventFilmRepositoryTest.java:87)
+
