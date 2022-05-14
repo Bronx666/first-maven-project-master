@@ -4,10 +4,12 @@ import com.bronx.dto.EventFilter;
 import com.bronx.entity.EventFilm;
 import com.bronx.entity.QEventFilm;
 import com.querydsl.jpa.impl.JPAQuery;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class EventFilmRepository extends RepositoryBase<Long,EventFilm>{
 
 

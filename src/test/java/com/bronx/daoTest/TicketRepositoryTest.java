@@ -1,17 +1,17 @@
 package com.bronx.daoTest;
 
+import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Ticket;
 import com.bronx.repository.TicketRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
-import com.bronx.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class TicketRepositoryTest {
 
 
-    static private final SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    static private SessionFactory sessionFactory;
     static private Session session;
-
     static private TicketRepository ticketRepository;
 
     @BeforeAll
     static void init() {
+        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        sessionFactory = context.getBean(SessionFactory.class);
+        session = context.getBean(Session.class);
+        ticketRepository = context.getBean(TicketRepository.class);
         TestDataImporter.importData(sessionFactory);
-        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(),
-                new Class[]{Session.class},
-                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
     }
 
     @AfterAll
@@ -44,7 +44,6 @@ public class TicketRepositoryTest {
     @Test
     void findAll() {
         session.beginTransaction();
-        ticketRepository = new TicketRepository(session);
 
         List<Ticket> results = ticketRepository.findAll();
         assertThat(results).hasSize(3);
@@ -59,7 +58,6 @@ public class TicketRepositoryTest {
     void findTicketById() {
 
         session.beginTransaction();
-        ticketRepository = new TicketRepository(session);
 
         Optional<Ticket> result = ticketRepository.findById(1L);
         assertEquals(result.get().getTicketNumber(), 40);
@@ -71,7 +69,6 @@ public class TicketRepositoryTest {
     void saveTicketAndReturnWithId() {
 
         session.beginTransaction();
-        ticketRepository = new TicketRepository(session);
         var ticket = GettersEntityUtil
                 .getTicket(GettersEntityUtil.getUser(),
                         GettersEntityUtil.getEventFilm(GettersEntityUtil
@@ -88,7 +85,6 @@ public class TicketRepositoryTest {
     @Test
     void deleteTicket() {
         session.beginTransaction();
-        ticketRepository = new TicketRepository(session);
 
         ticketRepository.delete(1L);
         assertNull(session.get(Ticket.class, 1L));
@@ -99,7 +95,6 @@ public class TicketRepositoryTest {
     @Test
     void checkUpdateUsername() {
         session.beginTransaction();
-        ticketRepository = new TicketRepository(session);
 
         var ticket = session.get(Ticket.class, 1L);
         ticket.setTicketNumber(34);

@@ -1,17 +1,17 @@
 package com.bronx.daoTest;
 
-import com.bronx.repository.HallRepository;
+import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Hall;
+import com.bronx.repository.HallRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
-import com.bronx.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HallRepositoryTest {
 
-    static private final SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    static private SessionFactory sessionFactory;
     static private Session session;
-
     static private HallRepository hallRepository;
 
     @BeforeAll
     static void init() {
+        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        sessionFactory = context.getBean(SessionFactory.class);
+        session = context.getBean(Session.class);
+        hallRepository = context.getBean(HallRepository.class);
         TestDataImporter.importData(sessionFactory);
-        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(),
-                new Class[]{Session.class},
-                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
     }
 
     @AfterAll
@@ -43,7 +43,6 @@ public class HallRepositoryTest {
     @Test
     void findAll() {
         session.beginTransaction();
-        hallRepository = new HallRepository(session);
 
         List<Hall> results = hallRepository.findAll();
         assertThat(results).hasSize(3);
@@ -58,7 +57,6 @@ public class HallRepositoryTest {
     void findHallById() {
 
         session.beginTransaction();
-        hallRepository = new HallRepository(session);
 
         Optional<Hall> result = hallRepository.findById(1L);
         assertEquals(result.get().getName(), "first galaxy hall");
@@ -71,7 +69,6 @@ public class HallRepositoryTest {
 
         session.beginTransaction();
         var hall = GettersEntityUtil.getHall(GettersEntityUtil.getCinema());
-        hallRepository = new HallRepository(session);
 
         hall = hallRepository.save(hall);
 
@@ -83,7 +80,6 @@ public class HallRepositoryTest {
     @Test
     void deleteHall() {
         session.beginTransaction();
-        hallRepository = new HallRepository(session);
 
         hallRepository.delete(1L);
         assertNull(session.get(Hall.class,1L));
@@ -94,7 +90,6 @@ public class HallRepositoryTest {
     @Test
     void checkUpdateHallName (){
         session.beginTransaction();
-        hallRepository = new HallRepository(session);
 
         var hall = session.get(Hall.class, 1L);
         hall.setName("another name");

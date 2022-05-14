@@ -1,34 +1,34 @@
 package com.bronx;
 
+import com.bronx.config.ApplicationConfiguration;
 import com.bronx.repository.UserRepository;
-import com.bronx.entity.Role;
-import com.bronx.entity.User;
-import com.bronx.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
+import java.io.Serializable;
 
 public class HibernateRunner {
 
     public static void main(String[] args) {
 
-        SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        String value = "hello";
+        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
+        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
+        System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
 
-        var session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
-                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
+        try (var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
+            var userRepository = context.getBean("userRepository", UserRepository.class);
+            var session = context.getBean(Session.class);
+            session.beginTransaction();
 
-        var user = User.builder()
-                .username("Andrew")
-                .password("1234")
-                .role(Role.USER)
-                .build();
+            System.out.println(userRepository);
+            System.out.println("--------" + userRepository.findById(1L));
 
-        session.beginTransaction();
-        var userRepository = new UserRepository(session);
-        System.out.println(userRepository.save(user));
 
-        session.getTransaction().commit();
+            session.getTransaction().commit();
+        }
+
     }
 }
 

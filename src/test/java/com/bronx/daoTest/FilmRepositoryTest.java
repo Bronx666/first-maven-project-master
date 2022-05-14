@@ -1,17 +1,17 @@
 package com.bronx.daoTest;
 
-import com.bronx.repository.FilmRepository;
+import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Film;
+import com.bronx.repository.FilmRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
-import com.bronx.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FilmRepositoryTest {
 
-    static private final SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    static private SessionFactory sessionFactory;
     static private Session session;
-
     static private FilmRepository filmRepository;
 
     @BeforeAll
     static void init() {
+        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        sessionFactory = context.getBean(SessionFactory.class);
+        session = context.getBean(Session.class);
+        filmRepository = context.getBean(FilmRepository.class);
         TestDataImporter.importData(sessionFactory);
-        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(),
-                new Class[]{Session.class},
-                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
     }
 
     @AfterAll
@@ -43,7 +43,6 @@ public class FilmRepositoryTest {
     @Test
     void findAll() {
         session.beginTransaction();
-        filmRepository = new FilmRepository(session);
 
         List<Film> results = filmRepository.findAll();
         assertThat(results).hasSize(3);
@@ -58,7 +57,6 @@ public class FilmRepositoryTest {
     void findFilmById() {
 
         session.beginTransaction();
-        filmRepository = new FilmRepository(session);
 
         Optional<Film> result = filmRepository.findById(1L);
         assertEquals(result.get().getName(), "Morbius");
@@ -71,7 +69,6 @@ public class FilmRepositoryTest {
 
         session.beginTransaction();
         var film = GettersEntityUtil.getFilm();
-        filmRepository = new FilmRepository(session);
 
         film = filmRepository.save(film);
 
@@ -83,7 +80,6 @@ public class FilmRepositoryTest {
     @Test
     void deleteFilm() {
         session.beginTransaction();
-        filmRepository = new FilmRepository(session);
 
         filmRepository.delete(1L);
         assertNull(session.get(Film.class, 1L));
@@ -94,7 +90,6 @@ public class FilmRepositoryTest {
     @Test
     void checkUpdateFilmName() {
         session.beginTransaction();
-        filmRepository = new FilmRepository(session);
 
         var film = session.get(Film.class, 1L);
         film.setName("new name");

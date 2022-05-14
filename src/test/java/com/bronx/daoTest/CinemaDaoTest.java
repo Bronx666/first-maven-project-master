@@ -1,17 +1,17 @@
 package com.bronx.daoTest;
 
-import com.bronx.repository.CinemaRepository;
+import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Cinema;
+import com.bronx.repository.CinemaRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
-import com.bronx.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +22,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CinemaDaoTest {
 
-    static private final SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+    static private SessionFactory sessionFactory;
     static private Session session;
-
     static private CinemaRepository cinemaRepository;
 
     @BeforeAll
     static void init() {
+        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        sessionFactory = context.getBean(SessionFactory.class);
+        session = context.getBean(Session.class);
+        cinemaRepository = context.getBean(CinemaRepository.class);
         TestDataImporter.importData(sessionFactory);
-        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(),
-                new Class[]{Session.class},
-                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
     }
 
     @AfterAll
@@ -43,7 +43,6 @@ public class CinemaDaoTest {
     @Test
     void findAll() {
         session.beginTransaction();
-        cinemaRepository = new CinemaRepository(session);
 
         List<Cinema> results = cinemaRepository.findAll();
         assertThat(results).hasSize(2);
@@ -57,7 +56,6 @@ public class CinemaDaoTest {
     @Test
     void findCinemaById() {
         session.beginTransaction();
-        cinemaRepository = new CinemaRepository(session);
 
         Optional<Cinema> result = cinemaRepository.findById(1L);
         assertEquals(result.get().getName(), "Galaxy");
@@ -71,7 +69,6 @@ public class CinemaDaoTest {
     void saveCinemaAndReturnWithId() {
         session.beginTransaction();
         var cinema = GettersEntityUtil.getCinema();
-        cinemaRepository = new CinemaRepository(session);
 
         cinema = cinemaRepository.save(cinema);
 
@@ -85,10 +82,9 @@ public class CinemaDaoTest {
     @Test
     void deleteCinema() {
         session.beginTransaction();
-        cinemaRepository = new CinemaRepository(session);
 
         cinemaRepository.delete(1L);
-        assertNull(session.get(Cinema.class,1L));
+        assertNull(session.get(Cinema.class, 1L));
 
         session.getTransaction().rollback();
         session.close();
@@ -96,9 +92,8 @@ public class CinemaDaoTest {
     }
 
     @Test
-    void checkUpdateUsername (){
+    void checkUpdateUsername() {
         session.beginTransaction();
-        cinemaRepository = new CinemaRepository(session);
 
         var cinema = session.get(Cinema.class, 1L);
         cinema.setName("GGalaxy");

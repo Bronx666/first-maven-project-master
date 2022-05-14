@@ -21,6 +21,8 @@ import java.util.List;
 @Entity
 public class Cinema implements BaseEntity<Long>{
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,4 +32,14 @@ public class Cinema implements BaseEntity<Long>{
     @ToString.Exclude
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hall> halls;
+
+//    public Cinema(Long id,
+//                  String name,
+//                  String description,
+//                  List<Hall> halls) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.halls = halls;
+//    }
 }
