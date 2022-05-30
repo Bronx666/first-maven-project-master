@@ -1,17 +1,18 @@
 package com.bronx.daoTest;
 
 import com.bronx.config.ApplicationConfiguration;
-import com.bronx.dto.EventFilter;
 import com.bronx.entity.EventFilm;
+import com.bronx.entity.dto.EventFilter;
 import com.bronx.repository.EventFilmRepository;
-import com.bronx.repository.FilmRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -22,26 +23,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@SpringBootTest
 public class EventFilmRepositoryTest {
 
 
-    static private SessionFactory sessionFactory;
-    static private Session session;
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private Session session;
+    @Autowired
     static private EventFilmRepository eventFilmRepository;
 
-    @BeforeAll
-    static void init() {
-        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-        sessionFactory = context.getBean(SessionFactory.class);
-        session = context.getBean(Session.class);
-        eventFilmRepository = context.getBean(EventFilmRepository.class);
+    @BeforeEach
+    void init() {
         TestDataImporter.importData(sessionFactory);
     }
 
-    @AfterAll
-    static void close() {
-        sessionFactory.close();
-    }
 
     @Test
     void findAll() {

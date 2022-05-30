@@ -1,17 +1,15 @@
 package com.bronx.daoTest;
 
-import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.User;
 import com.bronx.repository.UserRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,31 +19,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
 public class UserRepositoryTest {
 
-    static private SessionFactory sessionFactory;
-    static private Session session;
-    static private UserRepository userRepository;
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private Session session;
+    @Autowired
+    private UserRepository userRepository;
 
-    @BeforeAll
-    static void init() {
-        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-        sessionFactory = context.getBean(SessionFactory.class);
-        session = context.getBean(Session.class);
-        userRepository = context.getBean(UserRepository.class);
+    @BeforeEach
+    void init() {
         TestDataImporter.importData(sessionFactory);
     }
 
-    @AfterAll
-    static void close() {
-        sessionFactory.close();
-    }
 
     @Test
     void findAll() {
-        session.beginTransaction();
-
         List<User> results = userRepository.findAll();
         assertThat(results).hasSize(3);
 

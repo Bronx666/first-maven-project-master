@@ -1,6 +1,6 @@
 package com.bronx.repository;
 
-import com.bronx.dto.EventFilter;
+import com.bronx.entity.dto.EventFilter;
 import com.bronx.entity.EventFilm;
 import com.bronx.entity.QEventFilm;
 import com.querydsl.jpa.impl.JPAQuery;

@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -20,25 +22,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@SpringBootTest
 public class HallRepositoryTest {
 
-    static private SessionFactory sessionFactory;
-    static private Session session;
-    static private HallRepository hallRepository;
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private Session session;
+    @Autowired
+    private HallRepository hallRepository;
 
     @BeforeAll
-    static void init() {
-        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-        sessionFactory = context.getBean(SessionFactory.class);
-        session = context.getBean(Session.class);
-        hallRepository = context.getBean(HallRepository.class);
+    void init() {
         TestDataImporter.importData(sessionFactory);
     }
 
-    @AfterAll
-    static void close() {
-        sessionFactory.close();
-    }
+
 
     @Test
     void findAll() {

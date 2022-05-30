@@ -11,13 +11,15 @@ import lombok.Cleanup;
 import lombok.experimental.UtilityClass;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.TestInstance;
 
 import java.time.LocalDateTime;
 
 @UtilityClass
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestDataImporter {
 
-    static LocalDateTime date = LocalDateTime.of(2022, 6, 25, 13, 24);
+     LocalDateTime date = LocalDateTime.of(2022, 6, 25, 13, 24);
 
     public void importData(SessionFactory sessionFactory) {
 
@@ -64,7 +66,7 @@ public class TestDataImporter {
 
     }
 
-    public static User saveUser(Session session,
+    public  User saveUser(Session session,
                                 String username,
                                 String password,
                                 Role role) {
@@ -77,7 +79,7 @@ public class TestDataImporter {
         return user;
     }
 
-    public static Film saveFilm(Session session,
+    public Film saveFilm(Session session,
                                 String name,
                                 String description,
                                 float ticketCost,
@@ -93,7 +95,7 @@ public class TestDataImporter {
         return film;
     }
 
-    public static Cinema saveCinema(Session session,
+    public  Cinema saveCinema(Session session,
                                     String name,
                                     String description) {
         Cinema cinema = Cinema.builder()
@@ -104,7 +106,7 @@ public class TestDataImporter {
         return cinema;
     }
 
-    public static Ticket saveTicket(Session session,
+    public  Ticket saveTicket(Session session,
                                     User user,
                                     EventFilm eventFilm) {
 
@@ -123,7 +125,7 @@ public class TestDataImporter {
         return ticket;
     }
 
-    public static Hall saveHall(Session session,
+    public  Hall saveHall(Session session,
                                 String name,
                                 String description,
                                 int amountOfSeats,
@@ -140,7 +142,7 @@ public class TestDataImporter {
         return hall;
     }
 
-    public static EventFilm saveEventFilm(Session session,
+    public EventFilm saveEventFilm(Session session,
                                           Hall hall,
                                           Film film,
                                           LocalDateTime date) {

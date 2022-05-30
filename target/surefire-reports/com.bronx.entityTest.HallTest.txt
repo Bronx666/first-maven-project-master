@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.bronx.entityTest.HallTest
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 1, Errors: 0, Skipped: 1, Time elapsed: 1.323 s <<< FAILURE! - in com.bronx.entityTest.HallTest
-com.bronx.entityTest.HallTest.updateHallName  Time elapsed: 0.108 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <first galaxy hall> but was: <Another name>
-	at com.bronx.entityTest.HallTest.updateHallName(HallTest.java:109)
-

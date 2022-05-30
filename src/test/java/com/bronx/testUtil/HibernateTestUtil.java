@@ -1,10 +1,12 @@
 package com.bronx.testUtil;
 
 import com.bronx.util.HibernateUtil;
+import lombok.experimental.UtilityClass;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+@UtilityClass
 public class HibernateTestUtil {
 
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:13");

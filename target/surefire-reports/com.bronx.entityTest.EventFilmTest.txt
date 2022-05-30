@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.bronx.entityTest.EventFilmTest
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 1, Errors: 0, Skipped: 1, Time elapsed: 1.413 s <<< FAILURE! - in com.bronx.entityTest.EventFilmTest
-com.bronx.entityTest.EventFilmTest.updateFreeSeats  Time elapsed: 0.055 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <40> but was: <39>
-	at com.bronx.entityTest.EventFilmTest.updateFreeSeats(EventFilmTest.java:101)
-

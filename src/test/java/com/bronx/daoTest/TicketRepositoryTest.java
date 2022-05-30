@@ -1,16 +1,15 @@
 package com.bronx.daoTest;
 
-import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Ticket;
 import com.bronx.repository.TicketRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,26 +19,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@SpringBootTest
 public class TicketRepositoryTest {
 
 
-    static private SessionFactory sessionFactory;
-    static private Session session;
-    static private TicketRepository ticketRepository;
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private Session session;
+    @Autowired
+    private TicketRepository ticketRepository;
 
-    @BeforeAll
-    static void init() {
-        var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
-        sessionFactory = context.getBean(SessionFactory.class);
-        session = context.getBean(Session.class);
-        ticketRepository = context.getBean(TicketRepository.class);
+    @BeforeEach
+    void init() {
         TestDataImporter.importData(sessionFactory);
     }
 
-    @AfterAll
-    static void close() {
-        sessionFactory.close();
-    }
+
 
     @Test
     void findAll() {
