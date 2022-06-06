@@ -1,7 +1,7 @@
 package com.bronx.daoTest;
 
 import com.bronx.entity.Ticket;
-import com.bronx.repository.TicketRepository;
+import com.bronx.repositoryOldVersion.TicketRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
@@ -34,7 +34,6 @@ public class TicketRepositoryTest {
     void init() {
         TestDataImporter.importData(sessionFactory);
     }
-
 
 
     @Test

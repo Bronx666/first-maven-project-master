@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class User implements BaseEntity<Long>{
+public class User implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,15 +35,16 @@ public class User implements BaseEntity<Long>{
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
-    public void addTicket(Ticket ticket){
+    public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
         ticket.setUser(this);
     }
-    public void removeTicket(Ticket ticket){
-        //нужно ли обновлять с базой?
+
+    public void removeTicket(Ticket ticket) {
         this.tickets.remove(ticket);
         ticket.setUser(null);
     }

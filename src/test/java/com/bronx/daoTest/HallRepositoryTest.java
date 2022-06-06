@@ -1,18 +1,15 @@
 package com.bronx.daoTest;
 
-import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Hall;
-import com.bronx.repository.HallRepository;
+import com.bronx.repositoryOldVersion.HallRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +33,6 @@ public class HallRepositoryTest {
     void init() {
         TestDataImporter.importData(sessionFactory);
     }
-
 
 
     @Test
@@ -81,13 +77,13 @@ public class HallRepositoryTest {
         session.beginTransaction();
 
         hallRepository.delete(1L);
-        assertNull(session.get(Hall.class,1L));
+        assertNull(session.get(Hall.class, 1L));
 
         session.getTransaction().rollback();
     }
 
     @Test
-    void checkUpdateHallName (){
+    void checkUpdateHallName() {
         session.beginTransaction();
 
         var hall = session.get(Hall.class, 1L);

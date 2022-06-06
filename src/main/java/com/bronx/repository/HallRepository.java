@@ -1,14 +1,10 @@
 package com.bronx.repository;
 
 import com.bronx.entity.Hall;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 
 @Repository
-public class HallRepository extends RepositoryBase<Long, Hall> {
-
-    public HallRepository(EntityManager entityManager){
-        super(Hall.class, entityManager);
-    }
+public interface HallRepository extends JpaRepository<Hall, Long> {
 }

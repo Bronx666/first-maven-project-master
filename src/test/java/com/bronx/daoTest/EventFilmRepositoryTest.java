@@ -1,19 +1,16 @@
 package com.bronx.daoTest;
 
-import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.EventFilm;
 import com.bronx.entity.dto.EventFilter;
-import com.bronx.repository.EventFilmRepository;
+import com.bronx.repositoryOldVersion.EventFilmRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +29,7 @@ public class EventFilmRepositoryTest {
     @Autowired
     private Session session;
     @Autowired
-    static private EventFilmRepository eventFilmRepository;
+    private EventFilmRepository eventFilmRepository;
 
     @BeforeEach
     void init() {

@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class EventFilmTest extends GettersEntityUtil{
-
+public class EventFilmTest extends GettersEntityUtil {
 
 
     @BeforeAll
@@ -62,7 +61,7 @@ public class EventFilmTest extends GettersEntityUtil{
 
     @Test
     @Disabled
-    //StackOverFlow
+        //StackOverFlow
     void checkDeleteEventFilm() {
         @Cleanup Session session = sessionFactory.openSession();
         session.beginTransaction();

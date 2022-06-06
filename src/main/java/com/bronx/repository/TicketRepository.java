@@ -1,14 +1,9 @@
 package com.bronx.repository;
 
 import com.bronx.entity.Ticket;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-
 @Repository
-public class TicketRepository extends RepositoryBase<Long, Ticket>{
-
-    public TicketRepository(EntityManager entityManager) {
-        super(Ticket.class, entityManager);
-    }
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
 }

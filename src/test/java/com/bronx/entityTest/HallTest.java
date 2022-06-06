@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class HallTest extends GettersEntityUtil{
+public class HallTest extends GettersEntityUtil {
 
 
     static SessionFactory sessionFactory;
@@ -28,6 +28,7 @@ public class HallTest extends GettersEntityUtil{
     static void getSession() {
         sessionFactory = HibernateUtil.buildSessionFactory();
     }
+
     @Test
     void checkReturnHall() {
         @Cleanup Session session = sessionFactory.openSession();

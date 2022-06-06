@@ -23,7 +23,7 @@ public class UserTest extends GettersEntityUtil {
     }
 
     @AfterAll
-    static void close(){
+    static void close() {
         sessionFactory.close();
     }
 

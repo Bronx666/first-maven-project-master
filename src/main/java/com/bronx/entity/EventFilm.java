@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 public class EventFilm implements BaseEntity<Long> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

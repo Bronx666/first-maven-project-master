@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Ticket implements BaseEntity<Long>{
+public class Ticket implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

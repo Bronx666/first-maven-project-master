@@ -1,18 +1,15 @@
 package com.bronx.daoTest;
 
-import com.bronx.config.ApplicationConfiguration;
 import com.bronx.entity.Film;
-import com.bronx.repository.FilmRepository;
+import com.bronx.repositoryOldVersion.FilmRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 import java.util.Optional;

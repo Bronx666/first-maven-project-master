@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestDataImporter {
 
-     LocalDateTime date = LocalDateTime.of(2022, 6, 25, 13, 24);
+    LocalDateTime date = LocalDateTime.of(2022, 6, 25, 13, 24);
 
     public void importData(SessionFactory sessionFactory) {
 
@@ -36,7 +36,7 @@ public class TestDataImporter {
         Film morbius = saveFilm(session, "Morbius", "Film about vampires", 20, 134);
         Film viking = saveFilm(session, "Viking", "Film about vikings", 15, 124);
         //3
-        Film stranger = saveFilm(session,"Stranger", "Film about stranger", 25, 144);
+        Film stranger = saveFilm(session, "Stranger", "Film about stranger", 25, 144);
 
         //id = 1
         Hall galaxyFirstHall = saveHall(session,
@@ -66,10 +66,10 @@ public class TestDataImporter {
 
     }
 
-    public  User saveUser(Session session,
-                                String username,
-                                String password,
-                                Role role) {
+    public User saveUser(Session session,
+                         String username,
+                         String password,
+                         Role role) {
         User user = User.builder()
                 .username(username)
                 .password(password)
@@ -80,10 +80,10 @@ public class TestDataImporter {
     }
 
     public Film saveFilm(Session session,
-                                String name,
-                                String description,
-                                float ticketCost,
-                                int duration) {
+                         String name,
+                         String description,
+                         float ticketCost,
+                         int duration) {
 
         Film film = Film.builder()
                 .name(name)
@@ -95,9 +95,9 @@ public class TestDataImporter {
         return film;
     }
 
-    public  Cinema saveCinema(Session session,
-                                    String name,
-                                    String description) {
+    public Cinema saveCinema(Session session,
+                             String name,
+                             String description) {
         Cinema cinema = Cinema.builder()
                 .name(name)
                 .description(description)
@@ -106,9 +106,9 @@ public class TestDataImporter {
         return cinema;
     }
 
-    public  Ticket saveTicket(Session session,
-                                    User user,
-                                    EventFilm eventFilm) {
+    public Ticket saveTicket(Session session,
+                             User user,
+                             EventFilm eventFilm) {
 
 //        eventFilm.setFreeSeats(eventFilm.getFreeSeats() - 1);
 //        session.update(eventFilm);
@@ -125,11 +125,11 @@ public class TestDataImporter {
         return ticket;
     }
 
-    public  Hall saveHall(Session session,
-                                String name,
-                                String description,
-                                int amountOfSeats,
-                                Cinema cinema) {
+    public Hall saveHall(Session session,
+                         String name,
+                         String description,
+                         int amountOfSeats,
+                         Cinema cinema) {
         Hall hall = Hall.builder()
                 .name(name)
                 .description(description)
@@ -143,9 +143,9 @@ public class TestDataImporter {
     }
 
     public EventFilm saveEventFilm(Session session,
-                                          Hall hall,
-                                          Film film,
-                                          LocalDateTime date) {
+                                   Hall hall,
+                                   Film film,
+                                   LocalDateTime date) {
         EventFilm eventFilm = EventFilm.builder()
                 .hall(hall)
                 .film(film)

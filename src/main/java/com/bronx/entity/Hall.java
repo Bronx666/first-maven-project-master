@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Hall implements BaseEntity<Long>{
+public class Hall implements BaseEntity<Long> {
 
 
     @Id

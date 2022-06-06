@@ -21,36 +21,17 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
-
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.3.19</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>5.3.19</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.6.8.Final</version>
         </dependency>
 
         <dependency>
@@ -70,21 +51,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.7.0</version>
             <scope>test</scope>
         </dependency>
 
+
+        <!--        //esdfefw-->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.17.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.1.212</version>
             <scope>test</scope>
         </dependency>
 
@@ -112,13 +87,6 @@
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
             <version>1.3.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.freefair.lombok</groupId>
-            <artifactId>io.freefair.lombok.gradle.plugin</artifactId>
-            <version>6.4.3</version>
-            <type>pom</type>
         </dependency>
 
     </dependencies>

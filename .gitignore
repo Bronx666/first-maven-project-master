@@ -1,0 +1,6 @@
+/target/
+/.idea/
+/lib/
+/bronx.log
+/src/main/java/com/bronx/repositoryOldVersion/
+/src/test/java/com/bronx/daoTest/

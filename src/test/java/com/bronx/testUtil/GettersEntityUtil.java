@@ -75,6 +75,5 @@ public class GettersEntityUtil {
                 .date(date)
                 .freeSeats(hall.getAmountOfSeats())
                 .build();
-
     }
 }

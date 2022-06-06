@@ -1,6 +1,11 @@
 db:
-  username: postgres
-  password: pass
-  driver: PostgresDriver
-  url: postgres:5432
-  hosts: localhost,127.0.0.1
+  username: test
+  password: test
+
+spring:
+  datasource:
+    username: test
+    password: test
+  jpa:
+    properties.hibernate:
+      hbm2ddl.auto: update

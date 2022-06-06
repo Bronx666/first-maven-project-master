@@ -1,15 +1,9 @@
 package com.bronx.repository;
 
-
 import com.bronx.entity.Film;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-
 @Repository
-public class FilmRepository extends RepositoryBase<Long, Film> {
-
-    public FilmRepository(EntityManager entityManager) {
-        super(Film.class, entityManager);
-    }
+public interface FilmRepository extends JpaRepository<Film, Long> {
 }

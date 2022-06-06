@@ -56,7 +56,7 @@ public class CinemaTest {
     }
 
     @Test
-    void updateCinemaName(){
+    void updateCinemaName() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         session.beginTransaction();

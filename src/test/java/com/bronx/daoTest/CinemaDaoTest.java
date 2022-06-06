@@ -1,7 +1,7 @@
 package com.bronx.daoTest;
 
 import com.bronx.entity.Cinema;
-import com.bronx.repository.CinemaRepository;
+import com.bronx.repositoryOldVersion.CinemaRepository;
 import com.bronx.testUtil.GettersEntityUtil;
 import com.bronx.testUtil.TestDataImporter;
 import org.hibernate.Session;

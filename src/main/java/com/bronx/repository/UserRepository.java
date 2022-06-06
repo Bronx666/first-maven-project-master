@@ -1,16 +1,12 @@
 package com.bronx.repository;
 
 import com.bronx.entity.User;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-@Component
-public class UserRepository extends RepositoryBase<Long, User> {
-
-    public UserRepository(EntityManager entityManager) {
-        super(User.class, entityManager);
-    }
-
-
+    void deleteById(Long id);
 }

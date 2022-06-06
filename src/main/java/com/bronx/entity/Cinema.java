@@ -19,8 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Cinema implements BaseEntity<Long>{
-
+public class Cinema implements BaseEntity<Long> {
 
 
     @Id
